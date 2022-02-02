@@ -13,8 +13,8 @@ This repository contains laboratory works for the **LFPC**.
 Teacher **Vdovicenco Alexandru**.
 
 ##
-[:heavy_check_mark: Laboratory work 1]
+:heavy_check_mark: Laboratory work 1
 
 ## Contact
 
-My email: `ana.coroletchi@isa.utm.md`. You can reach me anytime c:
+My email: `ana.coroletchi@isa.utm.md`
