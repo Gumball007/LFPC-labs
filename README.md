@@ -13,7 +13,7 @@ This repository contains laboratory works for the **LFPC**.
 Teacher **Vdovicenco Alexandru**.
 
 ##
-[:heavy_check_mark: Laboratory work 1](https://github.com/Gumball007/LFPC-labs/lab1)
+[:heavy_check_mark: Laboratory work 1](https://github.com/Gumball007/LFPC-labs/tree/main/lab1)
 
 ## Contact
 
