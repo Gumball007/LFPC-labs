@@ -14,6 +14,7 @@ Teacher **Vdovicenco Alexandru**.
 
 ##
 [:heavy_check_mark: Laboratory work 1](https://github.com/Gumball007/LFPC-labs/tree/main/lab1)
+
 [:heavy_check_mark: Laboratory work 2](https://github.com/Gumball007/LFPC-labs/tree/main/lab2)
 
 ## Contact
