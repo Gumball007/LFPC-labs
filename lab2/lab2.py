@@ -31,17 +31,15 @@ DFA[new_state] = {}
 all_dfa_states = list(DFA.keys())
 input_alphabet = list(DFA[all_dfa_states[0]].keys())
 
-print(DFA.items())
 for key, value in DFA.items():
     DFA[all_dfa_states[4]][input_alphabet[0]] = 'q3'
     DFA[all_dfa_states[4]][input_alphabet[1]] = 'q0'
 
-# print(DFA)
+print('\nDFA is: ', DFA)
 table_DFA = pd.DataFrame(DFA).T
 head = ['a', 'b']
 print('DFA table:')
 print(tabulate(table_DFA, headers=head, tablefmt='grid'))
-
 
 # computing final states
 F += [new_state]
