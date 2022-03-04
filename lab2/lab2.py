@@ -36,7 +36,7 @@ for key, value in DFA.items():
     DFA[all_dfa_states[4]][input_alphabet[0]] = 'q3'
     DFA[all_dfa_states[4]][input_alphabet[1]] = 'q0'
 
-# print(DFA)
+print('\nDFA is: ', DFA)
 table_DFA = pd.DataFrame(DFA).T
 head = ['a', 'b']
 print('DFA table:')
