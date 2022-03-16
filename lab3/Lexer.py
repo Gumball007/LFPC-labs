@@ -4,20 +4,23 @@ DIGITS = '0123456789'
 LETTERS = string.ascii_letters
 LETTERS_DIGITS = LETTERS + DIGITS
 
-TOKENS = {
-    # SPECIAL TYPES
+SPECIAL_TYPES = {
     'ILLEGAL': 'ILLEGAL',
     'EOF': 'EOF',
+}
 
-    # IDENTIFIERS & LITERALS
+IDENTIFIERS = {
     'IDENTIFIER': 'IDENTIFIER',
+    'NUMBER' :'NUMBER',
+    'UNKNOWN': 'UNKNOWN',
     'int': 'INT',
     'float': 'FLOAT',
     'bool': 'BOOLEAN',
     'string': 'STRING',
     'char': 'CHAR',
+}
 
-    # OPERATORS
+OPERATORS = {
     ':': 'ASSIGN',
     '+': 'PLUS',
     '-': 'MINUS',
@@ -33,8 +36,9 @@ TOKENS = {
     '<': 'LESS',
     '>=': 'GE',
     '<=': 'LE',
+}
 
-    # DELIMITERS
+DELIMITERS = {
     '.': 'DOT',
     ',': 'COMMA',
     ';': 'SEMICOLON',
@@ -45,6 +49,7 @@ TOKENS = {
     '{': 'LBRACE',
     '}': 'RBRACE',
     '#': 'COMMENT',
+    '\n': 'NEWLINE',
 }
 
 KEYWORDS = {
@@ -79,12 +84,6 @@ class Lexer:
         self.index = -1
         self.nextChar()
 
-    def is_digit(self, c):
-        return str(c).isnumeric()
-
-    def is_char(self, c):
-        return str(c).isalpha()
-
     # advance with 1 position in char
     def nextChar(self):
         self.index += 1
@@ -100,23 +99,135 @@ class Lexer:
         else:
             return self.input[self.index + moves]
 
-    # skips whitespaces and taps
+    # skips whitespaces 
     def whiteSpace(self):
         while self.c == " " or self.c == "\t" or self.c == "\r":
             self.nextChar()
+        
+    def skip(self, x):
+        self.index += x
 
 
-    def tokenise(self):
+    def isKeyword(text):
+        text = text.upper()
+        for type in KEYWORDS:
+            if text == type.name:
+                return type
+        return False
+
+    def tokeniser(self):
         token = None
         value = ''
-        self.whiteSpace()  
+        self.whiteSpace()
 
+        if self.c == "#":
+            token = Token(DELIMITERS.PLUS, value)   
+
+        elif self.c == "+":
+            token = Token(OPERATORS.PLUS, value)  
+
+        elif self.c == "-":
+            token = Token(OPERATORS.MINUS, value) 
+
+        elif self.c == "*":
+            token = Token(OPERATORS.MULTIPLY, value) 
         
-    
+        elif self.c == ":":  
+            token = Token(OPERATORS.ASSIGN, value)
+
+        elif self.c == "&":
+            token = Token(OPERATORS.AND, value)  
+        
+        elif self.c == "|":
+            token = Token(OPERATORS.OR, value) 
+
+        elif self.c == "=":
+            token = Token(OPERATORS.EQUAL1, value) 
+
+        elif self.c == "=":
+            token = Token(OPERATORS.EQUAL2, value)   
+
+        elif self.c == "\n":  
+            token = Token(DELIMITERS.NEWLINE, value)
+
+        elif self.c == "\0":  
+            token = Token(SPECIAL_TYPES.EOF, value)
+
+        elif self.c == ";": 
+            token = Token(DELIMITERS.SEMICOLON, value)
+        elif self.c == ",": 
+            token = Token(DELIMITERS.COMMA, value)
+
+        elif self.c == "(":  
+            token = Token(DELIMITERS.LPAR, value)
+
+        elif self.c == ")":  
+            token = Token(DELIMITERS.RPAR, value)
+        
+        elif self.c == "[": 
+            token = Token(DELIMITERS.LBRACK, value)
+
+        elif self.c == "]":  
+            token = Token(DELIMITERS.RBRACK, value)
+        
+        elif self.c == "{":  
+            token = Token(DELIMITERS.LPAR, value)
+
+        elif self.c == "}":  
+            token = Token(DELIMITERS.RPAR, value)
+
+        elif self.c == "<":
+            if self.peek(1) == "=":  
+                token = Token(DELIMITERS.LE, value)
+                self.skip(1)
+            else:  
+                token = Token(DELIMITERS.LESS, value)
+
+        elif self.c == ">":
+            if self.peek(1) == "=":  
+                token = Token(DELIMITERS.GE, value)
+                self.skip(1)
+            else:  
+                token = Token(DELIMITERS.GREATER, ">")
+
+        elif self.c == "!":
+            if self.peek(1) == "=":  
+                token = Token(DELIMITERS.NOT_EQUAL, value)
+                self.skip(1)
+            else:  
+                token = Token(DELIMITERS.NEGATE, value)
+
+        elif self.c.isalpha():
+            while self.c.isalnum():
+                value += self.c
+                if self.peek(1).isalnum():
+                    self.nextChar()
+                else:
+                    break
+            if self.isKeyword(value) != False:
+                token = Token(self.isKeyword(value), value)  # Keyword Token
+            else:
+                token = Token(IDENTIFIERS.IDENTIFIER, value)  # Identifier Token
+
+        elif self.c.isdigit():  # Number Token
+            while self.c.isdigit():
+                value += self.c
+                if self.peek(1).isdigit():
+                    self.nextChar()
+                else:
+                    break
+            token = Token(IDENTIFIERS.NUMBER, value)
+
+        else:
+            token = Token(IDENTIFIERS.UNKNOWN, self.c)
+
+        self.nextChar()
+        return token
+
 with open('lab3/input.txt') as f:
     contents = f.read()
 
 lexer = Lexer(contents)
-tokens = lexer.tokenise()
-for token in tokens:
-    print(token)
+tokens = lexer.tokeniser()
+for tok in tokens:
+    print(tok)
