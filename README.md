@@ -19,6 +19,8 @@ Teacher **Vdovicenco Alexandru**.
 
 [:heavy_check_mark: Laboratory work 3](https://github.com/Gumball007/LFPC-labs/tree/main/lab3)
 
+[:heavy_check_mark: Laboratory work 4](https://github.com/Gumball007/LFPC-labs/tree/main/lab4)
+
 ## Contact
 
 My email: `ana.coroletchi@isa.utm.md`
