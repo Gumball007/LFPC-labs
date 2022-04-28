@@ -18,5 +18,6 @@ P = {
 }
 ```
 implement algorithm of simple precedence parsing and analyze the ```bacbcbcde```
+
 Bonus point: provide as an additional output the derivation tree. 
 
