@@ -16,6 +16,7 @@ P = {
     5. C -> CbD
     5. D -> c
 }
-implement algorithm of simple precedence parsing and analyze the `bacbcbcde`
-Bonus point: provide as an additional output the derivation tree. 
 ```
+implement algorithm of simple precedence parsing and analyze the ```bacbcbcde```
+Bonus point: provide as an additional output the derivation tree. 
+
